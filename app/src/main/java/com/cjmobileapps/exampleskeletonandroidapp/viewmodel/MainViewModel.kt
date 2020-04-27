@@ -15,12 +15,11 @@ class MainViewModel(private val mainService: MainService) : ViewModel() {
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
     val playersMutableLiveData = MutableLiveData<List<Player>>()
 
-
     fun getPlayers() {
         compositeDisposable.add(getPlayersDisposable())
     }
 
-    fun getPlayersDisposable() : Disposable {
+    private fun getPlayersDisposable() : Disposable {
         return mainService.getPlayers()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
